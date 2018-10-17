@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+//Creation of the classe arms
 class Arme {
     
     var degats: Int
