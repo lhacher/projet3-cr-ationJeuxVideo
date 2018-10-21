@@ -71,7 +71,7 @@ print("\(team2.character1.name)")
 print("\(team2.character2.name)")
 print("\(team2.character3.name)")
 
-returnJouer = game.jouer(contre: <#Character#>)
+game.jouer()
 
 
 

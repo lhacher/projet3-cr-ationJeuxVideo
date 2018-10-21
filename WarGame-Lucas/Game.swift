@@ -81,8 +81,14 @@ class Game {
         
         return Int(strData!)!
     }
-    
-    func jouer(contre joueur : Character) {
+    func choiceAttack() {
+        
+        print("Quel choix ?")
+        print("1. Attaquer")
+        print("2. Améliorer son arme")
+        
+    }
+    func jouer() {
         var choixUtilisateur: Int
         
         /*print("Choix personnage du joueur 1:"
@@ -93,12 +99,39 @@ class Game {
         
         // On boucle tant qu'il n'a pas choisi un de ces deux solutions
         repeat {
-            print("Quel choix ?")
+            print("Choix personnage du joueur 1:"
+                + "\n1. \(team1.character1.name) "
+                + "\n2. \(team1.character2.name)"
+                + "\n3. \(team1.character3.name)")
+           /* print("Quel choix ?")
             print("1. Attaquer")
-            print("2. Améliorer son arme")
+            print("2. Améliorer son arme")*/
             choixUtilisateur = input()
             print()
-        } while choixUtilisateur != 1 && choixUtilisateur != 2
+        } while choixUtilisateur != 1 && choixUtilisateur != 2 && choixUtilisateur != 3
+        
+        var choice: Bool = false
+        repeat {
+            if let intChoice = readLine(){
+                
+                switch intChoice {
+   
+                    
+                    case "1":
+                        choice = true
+                        choiceAttack()
+                        
+                    default:
+                    
+                    print("erreur")
+                }
+                
+                
+                
+                
+                
+            }
+        }while choice == false
         
         // On réalise l'action demandée
         /*if choixUtilisateur == 1 {
