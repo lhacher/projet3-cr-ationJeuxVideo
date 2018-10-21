@@ -11,6 +11,7 @@ import Foundation
 
 class Game {
     
+    var choixUtilisateur: Int = 0
     
     func createCurrentCharacter(characterNum: Int) -> Character {
         
@@ -83,13 +84,35 @@ class Game {
     }
     func choiceAttack() {
         
+        repeat{
+            
         print("Quel choix ?")
         print("1. Attaquer")
         print("2. Améliorer son arme")
+            
+        }while choixUtilisateur != 1 && choixUtilisateur != 2
+        
+        
+       /* if choixUtilisateur == 1 {
+            
+            choiceAdversary()
+            
+        }else {
+            print("Vous avez pris la deuxième solution ")
+        }*/
+        
+        
+    }
+    
+    func choiceAdversary(){
+        print("choix adversaire :"
+            + "\n1. \(team2.character1.name) "
+            + "\n2. \(team2.character2.name)"
+            + "\n3. \(team2.character3.name)")
         
     }
     func jouer() {
-        var choixUtilisateur: Int
+        
         
         /*print("Choix personnage du joueur 1:"
             + " \n1.\(team1.character1.name) "
@@ -110,28 +133,15 @@ class Game {
             print()
         } while choixUtilisateur != 1 && choixUtilisateur != 2 && choixUtilisateur != 3
         
-        var choice: Bool = false
-        repeat {
-            if let intChoice = readLine(){
-                
-                switch intChoice {
-   
-                    
-                    case "1":
-                        choice = true
-                        choiceAttack()
-                        
-                    default:
-                    
-                    print("erreur")
-                }
-                
-                
-                
-                
-                
-            }
-        }while choice == false
+        if choixUtilisateur == 1 {
+            choiceAttack()
+        }
+        else if choixUtilisateur == 2 {
+            choiceAttack()
+        }
+        else if choixUtilisateur == 3 {
+            choiceAttack()
+        }
         
         // On réalise l'action demandée
         /*if choixUtilisateur == 1 {
