@@ -11,7 +11,6 @@ import Foundation
 
 class Game {
     
-    var choixUtilisateur: Int = 0
     
     func createCurrentCharacter(characterNum: Int) -> Character {
         
@@ -20,7 +19,7 @@ class Game {
         
         
         if let inputNom = readLine() {
-
+            
             print()
             
             print("Quelle sera la classe de \(inputNom) ?"
@@ -64,15 +63,13 @@ class Game {
                 
             } while role == false
             
-        
+            
             
         }
-       
-        
         
         return currentCharacter
         
-      
+        
         
     } // End of createCurrentCharacter()
     
@@ -82,76 +79,86 @@ class Game {
         
         return Int(strData!)!
     }
+    
     func choiceAttack() {
         
-        repeat{
-            
         print("Quel choix ?")
         print("1. Attaquer")
         print("2. Améliorer son arme")
-            
-        }while choixUtilisateur != 1 && choixUtilisateur != 2
-        
-        
-       /* if choixUtilisateur == 1 {
-            
-            choiceAdversary()
-            
-        }else {
-            print("Vous avez pris la deuxième solution ")
-        }*/
-        
-        
     }
     
-    func choiceAdversary(){
-        print("choix adversaire :"
-            + "\n1. \(team2.character1.name) "
-            + "\n2. \(team2.character2.name)"
-            + "\n3. \(team2.character3.name)")
+     func jouer() {
+     
+     // prévoir une algorithmie aléatoire pour qui démarre
+     
+     var currentAttackTeam = team1
+     var currentTargetTeam = team2
+     
+     var choixAttaquant: Int
+     var choixTarget: Int
+     
+     //Prévoir le choix du chartacter attaquant
+     // On boucle tant qu'il n'a pas choisi un de ces deux solutions
+     repeat {
+     print("Choix personnage attaquant :"
+     + "\n1. \(currentAttackTeam.character1.name) "
+     + "\n2. \(currentAttackTeam.character2.name)"
+     + "\n3. \(currentAttackTeam.character3.name)")
+     
+     choixAttaquant = input()
+     
+     } while choixAttaquant != 1 && choixAttaquant != 2 && choixAttaquant != 3
+     
+     //faire un switch/case pour valider le personnage attaquant
         
-    }
-    func jouer() {
         
         
-        /*print("Choix personnage du joueur 1:"
-            + " \n1.\(team1.character1.name) "
-            + " \n2.\(team1.character2.name)"
-            + " \n3.\(team1.character3.name)")
-        */
-        
-        // On boucle tant qu'il n'a pas choisi un de ces deux solutions
+        var choice: Bool = true
         repeat {
-            print("Choix personnage du joueur 1:"
-                + "\n1. \(team1.character1.name) "
-                + "\n2. \(team1.character2.name)"
-                + "\n3. \(team1.character3.name)")
-           /* print("Quel choix ?")
-            print("1. Attaquer")
-            print("2. Améliorer son arme")*/
-            choixUtilisateur = input()
-            print()
-        } while choixUtilisateur != 1 && choixUtilisateur != 2 && choixUtilisateur != 3
-        
-        if choixUtilisateur == 1 {
-            choiceAttack()
-        }
-        else if choixUtilisateur == 2 {
-            choiceAttack()
-        }
-        else if choixUtilisateur == 3 {
-            choiceAttack()
-        }
-        
-        // On réalise l'action demandée
-        /*if choixUtilisateur == 1 {
-            self.attaquer(personnage: personnage)
-        } else {
-            self.ameliorerArme()
-        }*/
-       
-    }
-   
-
+            
+            if let intChoice = readLine() {
+                switch intChoice{
+                case "1":
+                    choice = true
+                    choiceAttack()
+                    
+                default :
+                    choice = false
+                    print("erreur ")
+                    
+                    
+                }
+            }
+        }while choice == false
+     //var curtentAttackCharacter = celui choisi
+     
+     
+     //Prévoir le choix du chartacter Target
+     // On boucle tant qu'il n'a pas choisi un de ces deux solutions
+     repeat {
+     print("Choix personnage Target :"
+     + "\n1. \(currentTargetTeam.character1.name) "
+     + "\n2. \(currentTargetTeam.character2.name)"
+     + "\n3. \(currentTargetTeam.character3.name)")
+     
+     choixTarget = input()
+     
+     } while choixTarget != 1 && choixTarget != 2 && choixTarget != 3
+     
+     //faire un switch/case pour valider le personnage target
+     //var currentTargetCharacter = celui choisi
+     
+     
+     //ici on a nos 2 combattants : LE COMBAT EFFECTIF
+     //currentTargetCharacter.life = currentTargetCharacter.life - curtentAttackCharacter.degats
+     
+     // test si currentTargetCharacter  est toujours en vie?
+     
+     // afficher le résumé
+     
+     // on permute les équipes et on boucle
+     }
+    
+    
     
 }
