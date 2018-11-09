@@ -18,6 +18,7 @@ var currentCharacter: Character
 var returndedCharacter: Character
 var returnJouer: Character
 
+
 //instanciation de l'objet game
 let game = Game()
 
@@ -71,9 +72,17 @@ print("\(team2.character1.name)")
 print("\(team2.character2.name)")
 print("\(team2.character3.name)")
 
+
+// LE CASTING EST FAIT, PLACE AU COMBAT
+
+
+
 game.jouer()
 
 
+
+
+print("end of game")
 
 
 
