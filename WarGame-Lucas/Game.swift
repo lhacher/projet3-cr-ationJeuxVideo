@@ -11,6 +11,18 @@ import Foundation
 
 class Game {
     
+    var currentAttackTeam = team1
+    var currentTargetTeam =  team2
+    var lifeTeamAttack = 0
+    var lifeTeamTarget = 0
+    var data: Int = 0
+    
+   
+    
+    var currentAttackCharacter: Character!
+    var currentTargetCharacter:  Character!
+    
+    
     func createCurrentCharacter(characterNum: Int) -> Character {
         
         print("Nom du personnage numéro \(characterNum) ?")
@@ -34,21 +46,21 @@ class Game {
                     switch inputRole {
                     case "1":
                         role = true
-                        currentCharacter = Character(name: "\(inputNom)", roleName: "Fighter", life: 200, arme: "Épée")
-                        print("Description de \(currentCharacter.name) \n Role:  \(currentCharacter.roleName) \n Vie: \(currentCharacter.life) \n Arme: \(currentCharacter.arme)")
+                        currentCharacter = Character(name: "\(inputNom)", roleName: "Fighter", life: 100)
+                        print("Description de \(currentCharacter.name) \n Role:  \(currentCharacter.roleName) \n Vie: \(currentCharacter.life) \n Arme: \(currentCharacter.arme!.degats)")
                     case "2":
                         role = true
-                        currentCharacter = Character(name: "\(inputNom)", roleName: "Wizard", life: 150, arme: "Sceptre")
-                        print("Description de \(currentCharacter.name) \n Role:  \(currentCharacter.roleName) \n Vie: \(currentCharacter.life) \n Arme: \(currentCharacter.arme)")
+                        currentCharacter = Character(name: "\(inputNom)", roleName: "Wizard", life: 100)
+                        print("Description de \(currentCharacter.name) \n Role:  \(currentCharacter.roleName) \n Vie: \(currentCharacter.life) \n Arme: \(currentCharacter.arme!.degats)")
                     case "3":
                         role = true
-                        currentCharacter = Character(name: "\(inputNom)", roleName: "Colossus", life: 300, arme: "Bouclier")
+                        currentCharacter = Character(name: "\(inputNom)", roleName: "Colossus", life: 100)
                         
-                        print("Description de \(currentCharacter.name) \n Role:  \(currentCharacter.roleName) \n Vie: \(currentCharacter.life) \n Arme: \(currentCharacter.arme)")
+                        print("Description de \(currentCharacter.name) \n Role:  \(currentCharacter.roleName) \n Vie: \(currentCharacter.life) \n Arme: \(currentCharacter.arme!.degats)")
                     case "4":
                         role = true
-                        currentCharacter = Character(name: "\(inputNom)", roleName: "Dwarf", life: 100, arme: "Hache")
-                        print("Description de \(currentCharacter.name) \n Role:  \(currentCharacter.roleName) \n Vie: \(currentCharacter.life) \n Arme: \(currentCharacter.arme)")
+                        currentCharacter = Character(name: "\(inputNom)", roleName: "Dwarf", life: 100)
+                        print("Description de \(currentCharacter.name) \n Role:  \(currentCharacter.roleName) \n Vie: \(currentCharacter.life) \n Arme: \(currentCharacter.arme!.degats)")
                     default:
                         role = false
                         print("Erreur de saisie !")
@@ -60,10 +72,8 @@ class Game {
                 
                 
             } while role == false
-            
-            
-            
-        }
+
+        } // end of : if let inputNom = readLine()
         
         return currentCharacter
         
@@ -71,7 +81,7 @@ class Game {
         
     } // End of createCurrentCharacter()
     
-    
+
     
     func input() -> Int {
         
@@ -80,22 +90,59 @@ class Game {
         return Int(strData!)!
     }
 
-
     
-     func jouer() {
+    
+    
+    
+    
+    // MARK: Boucle combat
+    func fight() {
         
-        var data: Int
+        var counter: Int = 0
+  
+        currentAttackTeam = team1
+        currentTargetTeam = team2
         
-        let currentAttackTeam = team1
-        let currentTargetTeam =  team2
-     
-        var currentAttackCharacter: Character!
-        var currentTargetCharacter:  Character!
-     // prévoir une algorithmie aléatoire pour qui démarre
+        // prévoir une algorithmie aléatoire pour qui démarre
+        
+        repeat {
+            
+            counter += 1
+            
+            choiceFighters()
+            
+            print("================ Round numéro \(counter) ================")
+            
+            lifeTeamAttack = currentAttackTeam.character1.life + currentAttackTeam.character2.life + currentAttackTeam.character3.life
+            lifeTeamTarget = currentTargetTeam.character1.life + currentTargetTeam.character2.life + currentTargetTeam.character3.life
+            
+            
+            theFight()
+            
+            
+            
+        } while true // sortir si une des équipe est entièrement morte
+                    // ou si le seul survivant attaquant est un mage
 
-     
-
+        
+        
+    } // end of : func fight()
+    
+    
+    
+    
+    
+    
+    
+     func choiceFighters() {
+        
                 repeat {
+                    
+                    print(currentAttackTeam)
+                    print(currentAttackTeam.name)
+                    print(currentAttackTeam.character1.name)
+                    print("")
+                    
                         print("Choix personnage attaquant :"
                             + "\n1. \(currentAttackTeam.character1.name) "
                             + "\n2. \(currentAttackTeam.character2.name)"
@@ -132,23 +179,6 @@ class Game {
                     
                 }
             }while choice == false
-
-        
-        print("currentAttackCharacter : \(currentAttackCharacter.name)")
-        print("currentTargetCharacter : \(currentTargetCharacter.name)")
-        
-        
-        //IMPORTANT
-        //ici on a nos 2 combattants :
-        // currentAttackCharacter
-        // currentTargetCharacter
-        
-        //appeler une fonction (à écrire) pour le LE COMBAT EFFECTIF
-        
-        //instruction de base dans la fonction
-        //currentTargetCharacter.life = currentTargetCharacter.life - currentAttackCharacter??????
-        
-        
         
     } // func jouer()
     
@@ -224,10 +254,31 @@ class Game {
         }while choice == false
         //var curtentAttackCharacter =
         
-    
     } // func attackOpponent()
+    
+    
+    func theFight() {
+    
+        print("")
+        print("Le combat a lieu entre :")
+        print("currentAttackCharacter : \(currentAttackCharacter.name) \(currentAttackCharacter.life)")
+        print("currentTargetCharacter : \(currentTargetCharacter.name) \(currentTargetCharacter.life)")
+        print("")
+        
+        //le combat
+        currentTargetCharacter.life = currentTargetCharacter.life - currentAttackCharacter.arme!.degats
+        
+        //currentTargetCharacter.life = currentTargetCharacter.life - currentAttackCharacter.armes.dommage
+        print("Il en résulte :")
+        print("currentAttackCharacter : \(currentAttackCharacter.name) \(currentAttackCharacter.life)")
+        print("currentTargetCharacter : \(currentTargetCharacter.name) \(currentTargetCharacter.life)")
+        print("")
+        print("la vie de l'équipe attaquant est de :  \(lifeTeamAttack)" )
+        print("")
+        print("la vie de l'équipe attaquer est de :  \(lifeTeamTarget)" )
 
     
-    
+    }
+
 } // end of : Class
 
