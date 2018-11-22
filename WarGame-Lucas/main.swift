@@ -18,6 +18,8 @@ var currentCharacter: Character
 var returndedCharacter: Character
 var returnJouer: Character
 
+let team1: Team
+let team2: Team
 
 //instanciation de l'objet game
 let game = Game()
@@ -38,7 +40,7 @@ character2 = currentCharacter
 currentCharacter = game.createCurrentCharacter(characterNum: 3)
 character3 = currentCharacter
 
-let team1 = Team(name: "Équipe 1", character1: character1!, character2: character2!, character3: character3!)
+team1 = Team(name: "Équipe 1", character1: character1!, character2: character2!, character3: character3!)
 
 
 
@@ -63,7 +65,7 @@ character2 = currentCharacter
 currentCharacter = game.createCurrentCharacter(characterNum: 3)
 character3 = currentCharacter
 
-let team2 = Team(name: "Équipe 2", character1: character1!, character2: character2!, character3: character3!)
+team2 = Team(name: "Équipe 2", character1: character1!, character2: character2!, character3: character3!)
 
 
 print("\(team2.name)")
@@ -76,11 +78,9 @@ print("\(team2.character3.name)")
 // LE CASTING EST FAIT, PLACE AU COMBAT
 
 
+game.fight()
 
-game.jouer()
-
-
-
+game.winner()
 
 print("end of game")
 

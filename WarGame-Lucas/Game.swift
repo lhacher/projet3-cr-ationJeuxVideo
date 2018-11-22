@@ -13,8 +13,8 @@ class Game {
     
     var currentAttackTeam = team1
     var currentTargetTeam =  team2
-    var lifeTeamAttack = 0
-    var lifeTeamTarget = 0
+    var lifeTeam1 = 0
+    var lifeTeam2 = 0
     var data: Int = 0
     
    
@@ -103,6 +103,7 @@ class Game {
         currentAttackTeam = team1
         currentTargetTeam = team2
         
+        
         // prévoir une algorithmie aléatoire pour qui démarre
         
         repeat {
@@ -113,15 +114,16 @@ class Game {
             
             print("================ Round numéro \(counter) ================")
             
-            lifeTeamAttack = currentAttackTeam.character1.life + currentAttackTeam.character2.life + currentAttackTeam.character3.life
-            lifeTeamTarget = currentTargetTeam.character1.life + currentTargetTeam.character2.life + currentTargetTeam.character3.life
             
+            lifeTeam1 = team1.character1.life + team1.character2.life + team1.character3.life
+            lifeTeam2 = team2.character1.life + team2.character2.life + team2.character3.life
             
             theFight()
             
             
             
-        } while true // sortir si une des équipe est entièrement morte
+            
+        } while  lifeTeam2 != 0 // sortir si une des équipe est entièrement morte
                     // ou si le seul survivant attaquant est un mage
 
         
@@ -252,7 +254,7 @@ class Game {
         
         }
         }while choice == false
-        //var curtentAttackCharacter =
+        
         
     } // func attackOpponent()
     
@@ -268,17 +270,34 @@ class Game {
         //le combat
         currentTargetCharacter.life = currentTargetCharacter.life - currentAttackCharacter.arme!.degats
         
+        if currentTargetCharacter.life < 0 {
+            currentTargetCharacter.life = 0
+        }
+        
         //currentTargetCharacter.life = currentTargetCharacter.life - currentAttackCharacter.armes.dommage
         print("Il en résulte :")
         print("currentAttackCharacter : \(currentAttackCharacter.name) \(currentAttackCharacter.life)")
         print("currentTargetCharacter : \(currentTargetCharacter.name) \(currentTargetCharacter.life)")
         print("")
-        print("la vie de l'équipe attaquant est de :  \(lifeTeamAttack)" )
+        print("la vie de l'équipe attaquant est de :  \(lifeTeam1)" )
         print("")
-        print("la vie de l'équipe attaquer est de :  \(lifeTeamTarget)" )
+        print("la vie de l'équipe attaquer est de :  \(lifeTeam2)" )
 
     
-    }
+    } //end of func theFight()
+    
+    
+    func winner() {
+        
+        
+        
+        if lifeTeam1 == 0 {
+            print("Les vainqueur sont la Team2")
+        }
+        else{
+            print("Les vainqueur sont la Team1")
+        }
+    }//end of func winner()
 
 } // end of : Class
 
