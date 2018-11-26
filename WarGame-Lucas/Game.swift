@@ -9,6 +9,7 @@
 import Foundation
 
 
+
 class Game {
     
     var currentAttackTeam = team1
@@ -91,20 +92,39 @@ class Game {
     }
 
     
-    
-    
-    
+    /*func randomTeamStart() {
+   
+     
+        }
+        
+      
+        
+ }*/ //func randomTeamStart()
+
     
     // MARK: Boucle combat
     func fight() {
         
         var counter: Int = 0
   
-        currentAttackTeam = team1
-        currentTargetTeam = team2
-        
-        
         // prévoir une algorithmie aléatoire pour qui démarre
+        var tab = ["team1","team2"]
+        
+        let randomIndex1 = Int(arc4random_uniform(UInt32(tab.count)))
+        let celebrity = tab[randomIndex1]
+        
+        
+        if celebrity == "team1" {
+            currentAttackTeam = team1
+            currentTargetTeam = team2
+        }
+        else if celebrity == "team2" {
+            currentAttackTeam = team2
+            currentTargetTeam = team1
+        }
+        
+      //  currentAttackTeam = team1
+      //  currentTargetTeam = team2
         
         repeat {
             
@@ -112,8 +132,24 @@ class Game {
             
             choiceFighters()
             
+            currentTargetCharacter.life = currentTargetCharacter.life - currentAttackCharacter.arme!.degats
+            
+            if currentTargetCharacter.life < 0 {
+                currentTargetCharacter.life = 0
+            }
+            
+            choiceFighters2()
+            
+            currentAttackCharacter.life = currentAttackCharacter.life - currentTargetCharacter.arme!.degats
+            
+            if currentAttackCharacter.life < 0 {
+                currentAttackCharacter.life = 0
+            }
+            
             print("================ Round numéro \(counter) ================")
             
+  
+          
             
             lifeTeam1 = team1.character1.life + team1.character2.life + team1.character3.life
             lifeTeam2 = team2.character1.life + team2.character2.life + team2.character3.life
@@ -140,10 +176,10 @@ class Game {
         
                 repeat {
                     
-                    print(currentAttackTeam)
+                   /* print(currentAttackTeam)
                     print(currentAttackTeam.name)
                     print(currentAttackTeam.character1.name)
-                    print("")
+                    print("")*/
                     
                         print("Choix personnage attaquant :"
                             + "\n1. \(currentAttackTeam.character1.name) "
@@ -182,8 +218,56 @@ class Game {
                 }
             }while choice == false
         
-    } // func jouer()
+    } // func choiceFighters()
     
+    
+    func choiceFighters2() {
+        
+        repeat {
+            
+            /* print(currentAttackTeam)
+             print(currentAttackTeam.name)
+             print(currentAttackTeam.character1.name)
+             print("")*/
+            
+            print("Choix personnage attaquant :"
+                + "\n1. \(currentTargetTeam.character1.name) "
+                + "\n2. \(currentTargetTeam.character2.name)"
+                + "\n3. \(currentTargetTeam.character3.name)")
+            
+            data = input()
+            
+        } while data != 1 && data != 2 && data != 3
+        
+        
+        print("choixAttaquant : \(data)")
+        
+        var choice: Bool = true
+        repeat {
+            
+            switch data{
+            case 1:
+                choice = true
+                currentTargetCharacter = currentTargetTeam.character1
+                currentAttackCharacter = choiceAttack2()
+                
+            case 2:
+                choice = true
+                currentTargetCharacter = currentTargetTeam.character2
+                currentAttackCharacter = choiceAttack2()
+                
+            case 3:
+                choice = true
+                currentTargetCharacter = currentTargetTeam.character3
+                currentAttackCharacter = choiceAttack2()
+            default :
+                choice = false
+                print("XXXXXXXerreur ")
+                
+            }
+        }while choice == false
+        
+    } // func choiceFighters2()
     
         func choiceAttack() -> Character{
             
@@ -213,12 +297,42 @@ class Game {
                 }
             }while choiceAttackTeam == false
             
-        }
+        }// func choiceAttack
         
+    
+    func choiceAttack2() -> Character{
+        
+        var data: Int
+        
+        repeat{
+            print("Quel choix ?")
+            print("1. Attaquer")
+            print("2. Améliorer son arme")
+            
+            data = input()
+            
+        }while data != 1 && data != 2
+        
+        var choiceTargetTeam: Bool = true
+        repeat {
+            
+            switch data{
+            case 1:
+                choiceTargetTeam = true
+                return attackOpponent2()
+                
+            default :
+                choiceTargetTeam = false
+                print("erreur ")
+                
+            }
+        }while choiceTargetTeam == false
+        
+    }// func choiceAttack2
     
     func attackOpponent() -> Character {
         
-        let currentTargetTeam =  team2
+        let currentTargetTeam =  self.currentTargetTeam
         
         var data: Int
         
@@ -258,6 +372,47 @@ class Game {
         
     } // func attackOpponent()
     
+    func attackOpponent2() -> Character {
+        
+        let currentAttackTeam =  self.currentAttackTeam
+        
+        var data: Int
+        
+        repeat {
+            print("Choix personnage Cible :"
+                + "\n1. \(currentAttackTeam.character1.name) "
+                + "\n2. \(currentAttackTeam.character2.name)"
+                + "\n3. \(currentAttackTeam.character3.name)")
+            
+            data  = input()
+            
+        } while data != 1 && data != 2 && data != 3
+        
+        
+        var choice: Bool = true
+        repeat {
+            
+            switch data{
+            case 1:
+                choice = true
+                return currentAttackTeam.character1
+                
+            case 2:
+                choice = true
+                return currentAttackTeam.character2
+                
+            case 3:
+                choice = true
+                return currentAttackTeam.character3
+            default :
+                choice = false
+                print("ZZZZZZZZZZerreur ")
+                
+            }
+        }while choice == false
+        
+        
+    } // func attackOpponent2()
     
     func theFight() {
     
@@ -268,29 +423,23 @@ class Game {
         print("")
         
         //le combat
-        currentTargetCharacter.life = currentTargetCharacter.life - currentAttackCharacter.arme!.degats
         
-        if currentTargetCharacter.life < 0 {
-            currentTargetCharacter.life = 0
-        }
         
         //currentTargetCharacter.life = currentTargetCharacter.life - currentAttackCharacter.armes.dommage
         print("Il en résulte :")
         print("currentAttackCharacter : \(currentAttackCharacter.name) \(currentAttackCharacter.life)")
         print("currentTargetCharacter : \(currentTargetCharacter.name) \(currentTargetCharacter.life)")
         print("")
-        print("la vie de l'équipe attaquant est de :  \(lifeTeam1)" )
+        print("la vie de la team 1  est de :  \(lifeTeam1)" )
         print("")
-        print("la vie de l'équipe attaquer est de :  \(lifeTeam2)" )
+        print("la vie de la team2 est de :  \(lifeTeam2)" )
 
     
     } //end of func theFight()
     
     
     func winner() {
-        
-        
-        
+    
         if lifeTeam1 == 0 {
             print("Les vainqueur sont la Team2")
         }
