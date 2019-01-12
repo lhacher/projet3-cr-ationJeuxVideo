@@ -12,16 +12,38 @@ import Foundation
 class Team {
     
     var name: String
-    
-    var character1: Character
-    var character2: Character
-    var character3: Character
+   
+    var tabCharacters = [Character]()
     
     init(name: String, character1: Character, character2: Character, character3: Character) {
         self.name = name
-        self.character1 = character1
-        self.character2 = character2
-        self.character3 = character3
+        
+        self.tabCharacters.append(character1)
+        self.tabCharacters.append(character2)
+        self.tabCharacters.append(character3)
+        
     }
+    
+    func teamLife () -> Int {
+        
+        var lifeTeam: Int = 0
+        
+        for idx in 0 ... 2 {
+            lifeTeam = lifeTeam + self.tabCharacters[idx].life
+        }
+        
+        return lifeTeam
+    }
+    
+    func getInfos() {
+    print("\(self.name)")
+    print("")
+    print("\(self.tabCharacters[0].name)")
+    print("\(self.tabCharacters[1].name)")
+    print("\(self.tabCharacters[2].name)")
+    
+    }
+
+    
 }
 

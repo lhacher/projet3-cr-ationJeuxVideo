@@ -11,24 +11,24 @@ import Foundation
 
 class Epees: Arme {
     init() {
-        super.init(degats: 50)
+        super.init(name: "",degats: constants.DEGATS )
     }
 }
 
 class Sceptre: Arme {
     init() {
-        super.init(degats: 50)
+        super.init(name: "Sceptre", degats: 50)
     }
 }
 
 class Bouclier: Arme {
     init() {
-        super.init(degats: 50)
+        super.init(name: "", degats: 50)
     }
 }
 
 class Hache: Arme {
     init() {
-        super.init(degats: 50)
+        super.init(name: "", degats: 50)
     }
 }

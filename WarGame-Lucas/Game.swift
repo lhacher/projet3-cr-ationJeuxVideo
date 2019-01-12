@@ -10,20 +10,76 @@ import Foundation
 
 
 
+
 class Game {
     
-    var currentAttackTeam = team1
-    var currentTargetTeam =  team2
-    var lifeTeam1 = 0
-    var lifeTeam2 = 0
-    var data: Int = 0
     
    
+    // Variables globales
+   
+    var currentCharacter: Character!
+    
+    var team1: Team!
+    var team2: Team!
+    
+    var currentAttackTeam: Team!
+    var currentTargetTeam:  Team!
+    
+    var lifeTeam1: Int = 0
+    var lifeTeam2: Int = 0
+    var data: Int = 0
     
     var currentAttackCharacter: Character!
     var currentTargetCharacter:  Character!
     
     
+    
+    
+    
+    func runGame() {
+        
+        createTeam1()
+        createTeam2()
+        team1.getInfos()
+        team2.getInfos()
+        //// LE CASTING EST FAIT, PLACE AU COMBAT
+        fight()
+        winner()
+    }
+    
+    
+    /**
+     création des personnages de l'équipe 1
+     */
+    func createTeam1() {
+        
+        let character1 = game.createCurrentCharacter(characterNum: 1)
+        
+        let character2 = game.createCurrentCharacter(characterNum: 2)
+        
+        let character3 = game.createCurrentCharacter(characterNum: 3)
+        
+        self.team1 = Team(name: "Équipe 1", character1: character1, character2: character2, character3: character3)
+        
+    }
+    
+    /**
+     création des personnages de l'équipe 2
+     */
+    func createTeam2() {
+        
+        let character1 = game.createCurrentCharacter(characterNum: 1)
+        
+        let character2 = game.createCurrentCharacter(characterNum: 2)
+        
+        let character3 = game.createCurrentCharacter(characterNum: 3)
+        
+        self.team2 = Team(name: "Équipe 2", character1: character1, character2: character2, character3: character3)
+        
+    }
+    
+    
+
     func createCurrentCharacter(characterNum: Int) -> Character {
         
         print("Nom du personnage numéro \(characterNum) ?")
@@ -48,7 +104,7 @@ class Game {
                     case "1":
                         role = true
                         currentCharacter = Character(name: "\(inputNom)", roleName: "Fighter", life: 100)
-                        print("Description de \(currentCharacter.name) \n Role:  \(currentCharacter.roleName) \n Vie: \(currentCharacter.life) \n Arme: \(currentCharacter.arme!.degats)")
+                        print("Description de \(currentCharacter.name) \n Role:  \(currentCharacter.roleName) \n Vie: \(currentCharacter.life) \n Arme: \(currentCharacter.arme!.degats))")
                     case "2":
                         role = true
                         currentCharacter = Character(name: "\(inputNom)", roleName: "Wizard", life: 100)
@@ -90,16 +146,6 @@ class Game {
         
         return Int(strData!)!
     }
-
-    
-    /*func randomTeamStart() {
-   
-     
-        }
-        
-      
-        
- }*/ //func randomTeamStart()
 
     
     // MARK: Boucle combat
@@ -175,9 +221,9 @@ class Game {
                 repeat {
                     
                         print("Choix personnage attaquant :"
-                            + "\n1. \(currentAttackTeam.character1.name) "
-                            + "\n2. \(currentAttackTeam.character2.name)"
-                            + "\n3. \(currentAttackTeam.character3.name)")
+                            + "\n1. \(currentAttackTeam.tabCharacters[0].name) "
+                            + "\n2. \(currentAttackTeam.tabCharacters[1].name)"
+                            + "\n3. \(currentAttackTeam.tabCharacters[2].name)")
      
                     data = input()
      
@@ -197,18 +243,18 @@ class Game {
                         currentTargetCharacter = healthTeam()
  
                         }else{*/
-                        currentAttackCharacter = currentAttackTeam.character1
+                        currentAttackCharacter = currentAttackTeam.tabCharacters[0]
                         currentTargetCharacter = choiceAttack()
                         //}
                         
                     case 2:
                         choice = true
-                        currentAttackCharacter = currentAttackTeam.character2
+                        currentAttackCharacter = currentAttackTeam.tabCharacters[1]
                         currentTargetCharacter = choiceAttack()
                         
                     case 3:
                         choice = true
-                        currentAttackCharacter = currentAttackTeam.character3
+                        currentAttackCharacter = currentAttackTeam.tabCharacters[2]
                         currentTargetCharacter = choiceAttack()
                     default :
                         choice = false
@@ -219,13 +265,15 @@ class Game {
         
     } // func choiceFighters()
     
+    
+    // func which treat his companion
     func healthTeam() -> Character{
         
         repeat {
             print("Choix personnage Cible :"
-                + "\n1. \(currentAttackTeam.character1.name) "
-                + "\n2. \(currentAttackTeam.character2.name)"
-                + "\n3. \(currentAttackTeam.character3.name)")
+                + "\n1. \(currentAttackTeam.tabCharacters[0].name) "
+                + "\n2. \(currentAttackTeam.tabCharacters[1].name)"
+                + "\n3. \(currentAttackTeam.tabCharacters[2].name)")
             
             data  = input()
             
@@ -238,22 +286,22 @@ class Game {
             switch data{
             case 1:
                 choice = true
-                return currentAttackTeam.character1
+                return currentAttackTeam.tabCharacters[0]
                 
             case 2:
                 choice = true
-                return currentAttackTeam.character2
+                return currentAttackTeam.tabCharacters[1]
                 
             case 3:
                 choice = true
-                return currentAttackTeam.character3
+                return currentAttackTeam.tabCharacters[2]
             default :
                 choice = false
                 print("erreur ")
                 
             }
         }while choice == false
-    }
+    }//func healthTeam
     
         func choiceAttack() -> Character{
             
@@ -300,9 +348,9 @@ class Game {
         
         repeat {
         print("Choix personnage Cible :"
-        + "\n1. \(currentTargetTeam.character1.name) "
-        + "\n2. \(currentTargetTeam.character2.name)"
-        + "\n3. \(currentTargetTeam.character3.name)")
+        + "\n1. \(currentTargetTeam!.tabCharacters[0].name) "
+        + "\n2. \(currentTargetTeam!.tabCharacters[1].name)"
+            + "\n3. \(currentTargetTeam!.tabCharacters[2].name)")
         
         data  = input()
         
@@ -315,15 +363,15 @@ class Game {
         switch data{
         case 1:
         choice = true
-        return currentTargetTeam.character1
+        return currentTargetTeam!.tabCharacters[0]
         
         case 2:
         choice = true
-        return currentTargetTeam.character2
+        return currentTargetTeam!.tabCharacters[1]
         
         case 3:
         choice = true
-        return currentTargetTeam.character3
+        return currentTargetTeam!.tabCharacters[2]
         default :
         choice = false
         print("erreur ")
@@ -349,6 +397,8 @@ class Game {
             
         }else{
         // éventuellement prévoir des aléas aléatoires de combat (esquive, contre-attaque, coffre....)
+            
+        //func random which dodges or not the attack
         let esquive = Bool.random()
         
         if esquive == true {

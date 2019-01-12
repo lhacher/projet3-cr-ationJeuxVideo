@@ -11,8 +11,11 @@ import Foundation
 class Arme {
     
     var degats: Int
+    var name: String
     
-    init(degats: Int) {
+    init(name: String,degats: Int) {
+        
+        self.name = name
         self.degats = degats
         
     }
