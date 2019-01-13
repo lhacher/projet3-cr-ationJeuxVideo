@@ -218,12 +218,13 @@ class Game {
     
      func choiceFighters() {
         
+        
                 repeat {
                     
                         print("Choix personnage attaquant :"
-                            + "\n1. \(currentAttackTeam.tabCharacters[0].name) "
-                            + "\n2. \(currentAttackTeam.tabCharacters[1].name)"
-                            + "\n3. \(currentAttackTeam.tabCharacters[2].name)")
+                            + "\n1. \(currentAttackTeam.tabCharacters[0].name) ( \(currentAttackTeam.tabCharacters[0].roleName)  )"
+                            + "\n2. \(currentAttackTeam.tabCharacters[1].name) ( \(currentAttackTeam.tabCharacters[1].roleName)  )"
+                            + "\n3. \(currentAttackTeam.tabCharacters[2].name) ( \(currentAttackTeam.tabCharacters[2].roleName)  )")
      
                     data = input()
      
@@ -238,14 +239,18 @@ class Game {
                     switch data{
                     case 1:
                         choice = true
-                    /*   if currentAttackCharacter.life == 100{
-                        currentAttackCharacter = currentAttackTeam.character1
+                        if currentAttackTeam.tabCharacters[0].life == 0 {
+                            print("CurrentAttack is dead, try aguain ")
+                            choiceFighters()
+                        }
+                        else if currentAttackTeam.tabCharacters[0].roleName == "Wizard" {
+                        currentAttackCharacter = currentAttackTeam.tabCharacters[0]
                         currentTargetCharacter = healthTeam()
  
-                        }else{*/
+                        }else{
                         currentAttackCharacter = currentAttackTeam.tabCharacters[0]
                         currentTargetCharacter = choiceAttack()
-                        //}
+                        }
                         
                     case 2:
                         choice = true
@@ -270,10 +275,10 @@ class Game {
     func healthTeam() -> Character{
         
         repeat {
-            print("Choix personnage Cible :"
-                + "\n1. \(currentAttackTeam.tabCharacters[0].name) "
-                + "\n2. \(currentAttackTeam.tabCharacters[1].name)"
-                + "\n3. \(currentAttackTeam.tabCharacters[2].name)")
+            print("Choix personnage Ciblesssssss :"
+                + "\n1. \(currentAttackTeam.tabCharacters[0].name) ( \(currentAttackTeam.tabCharacters[0].roleName)  ) "
+                + "\n2. \(currentAttackTeam.tabCharacters[1].name) ( \(currentAttackTeam.tabCharacters[1].roleName)  )"
+                + "\n3. \(currentAttackTeam.tabCharacters[2].name) ( \(currentAttackTeam.tabCharacters[2].roleName)  )")
             
             data  = input()
             
@@ -307,6 +312,7 @@ class Game {
             
             var data: Int
 
+     
             repeat{
                 print("Quel choix ?")
                 print("1. Attaquer")
@@ -326,8 +332,15 @@ class Game {
                 
                     switch data{
                     case 1:
+                     
                         choiceAttackTeam = true
-                        return attackOpponent()
+                     /*   if currentCharacter.roleName == "Wizard"{
+                            
+                            return healthTeam()
+                        }else{*/
+                            return attackOpponent()
+                      //  }
+                        
                    
                     default :
                         choiceAttackTeam = false
@@ -393,7 +406,7 @@ class Game {
         
         if currentAttackCharacter.roleName == "Wizard"{
             
-            currentAttackCharacter.life = currentAttackCharacter.life + currentAttackCharacter.arme!.degats
+            currentAttackCharacter.life = currentAttackCharacter.life + currentAttackCharacter.arme!.soins
             
         }else{
         // éventuellement prévoir des aléas aléatoires de combat (esquive, contre-attaque, coffre....)
@@ -415,6 +428,12 @@ class Game {
         }
         }
       
+        if currentAttackCharacter.life > 100 {
+            currentAttackCharacter.life = 100
+        }else if currentTargetCharacter.life > 100{
+            currentTargetCharacter.life = 100
+        }
+        
         if currentAttackCharacter.life < 0{
             currentAttackCharacter.life = 0
             
