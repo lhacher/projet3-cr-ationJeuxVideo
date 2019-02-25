@@ -18,14 +18,9 @@ let game = Game()
 game.runGame()
 
 
+print("")
+print("end of game")
 
 
 
 
-
-//
-//print("end of game")
-//
-//
-//
-//

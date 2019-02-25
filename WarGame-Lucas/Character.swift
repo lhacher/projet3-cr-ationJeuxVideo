@@ -25,6 +25,7 @@ class Character {
         
         //switch case fonction de la classe 1, 2, 3 ou 4
         switch roleName {
+
         case "Fighter":
             arme = Epees()
         case "Wizard":
@@ -38,5 +39,46 @@ class Character {
             break
         }
     }  // end of init
-}
+    
+    func majMaxLife() {
+        // MAJ DES NIVEAUX DE VIES MAX OU MIN
+        
+        if self.life > constants.MAX_LIFE {
+            self.life = constants.MAX_LIFE
+        }
+        
+     
+        if self.life > constants.MAX_LIFE {
+            self.life = constants.MAX_LIFE
+        }
+    }
+            
+    func majMinLife() {
+            
+        if self.life < constants.MIN_LIFE {
+            self.life = constants.MIN_LIFE
+        }
+            
+        if self.life < constants.MIN_LIFE {
+            self.life = constants.MIN_LIFE
+        }
+    }
+    
+      
+//    func coffre() {
+//
+//        let coffre:Bool
+//        let nbr = Int.random(in: 1 ... 100)
+//        if nbr <= 100 {
+//            coffre = true
+//        } else {
+//            coffre = false
+//        }
+//        
+//        if coffre == true {
+//            arme = Legende()
+//        }
+//    }
+   
+} // end of : class Character 
 

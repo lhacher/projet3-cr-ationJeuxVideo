@@ -12,11 +12,13 @@ class Arme {
     
     var degats: Int
     var name: String
+    var soins: Int
     
-    init(name: String,degats: Int) {
+    init(name: String,degats: Int, soins: Int) {
         
         self.name = name
         self.degats = degats
+        self.soins = soins
         
     }
     
