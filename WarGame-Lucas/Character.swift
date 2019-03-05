@@ -9,7 +9,7 @@
 
 import Foundation
 
-class Character {
+class Character: Game {
     
     var name: String
     var roleName: String
@@ -43,42 +43,41 @@ class Character {
     func majMaxLife() {
         // MAJ DES NIVEAUX DE VIES MAX OU MIN
         
-        if self.life > constants.MAX_LIFE {
-            self.life = constants.MAX_LIFE
+        if currentAttackCharacter.life > constants.MAX_LIFE {
+            currentAttackCharacter.life = constants.MAX_LIFE
         }
         
      
-        if self.life > constants.MAX_LIFE {
-            self.life = constants.MAX_LIFE
+        if currentTargetCharacter.life > constants.MAX_LIFE {
+            currentTargetCharacter.life = constants.MAX_LIFE
         }
     }
             
     func majMinLife() {
             
-        if self.life < constants.MIN_LIFE {
-            self.life = constants.MIN_LIFE
+        if currentAttackCharacter.life < constants.MIN_LIFE {
+            currentAttackCharacter.life = constants.MIN_LIFE
         }
             
-        if self.life < constants.MIN_LIFE {
-            self.life = constants.MIN_LIFE
+        if currentTargetCharacter.life < constants.MIN_LIFE {
+            currentTargetCharacter.life = constants.MIN_LIFE
         }
     }
     
-      
-//    func coffre() {
-//
-//        let coffre:Bool
-//        let nbr = Int.random(in: 1 ... 100)
-//        if nbr <= 100 {
-//            coffre = true
-//        } else {
-//            coffre = false
-//        }
-//        
-//        if coffre == true {
-//            arme = Legende()
-//        }
-//    }
-   
+    func coffre() {
+
+
+        let coffre:Bool
+        let nbr = Int.random(in: 1 ... 100)
+        if nbr <= 100 {
+            coffre = true
+        } else {
+            coffre = false
+        }
+        
+        if coffre == true {
+            arme = Legende()
+    }
+    }
 } // end of : class Character 
 

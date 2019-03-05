@@ -8,19 +8,14 @@
 import Foundation
 
 
-
-
-
-
 //instanciation de l'objet game
 let game = Game()
 
 game.runGame()
 
-
 print("")
 print("end of game")
-
+print("")
 
 
 

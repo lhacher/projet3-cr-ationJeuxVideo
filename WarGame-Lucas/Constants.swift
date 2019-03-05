@@ -24,5 +24,4 @@ static let MIN_LIFE = 0
     
 static let LEGENDE = 100
 
-    static let UPDATE = 20
 }

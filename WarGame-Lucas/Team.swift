@@ -25,15 +25,13 @@ class Team {
     }
     
     func teamLife () -> Int {
-        
         var lifeTeam: Int = 0
-        
         for idx in 0 ... 2 {
             lifeTeam = lifeTeam + self.tabCharacters[idx].life
         }
-        
         return lifeTeam
     }
+    
     
     func getInfos() {
     print("\(self.name)")
